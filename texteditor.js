@@ -26,8 +26,8 @@
 `# About Me
 ──────────────────────────────────────────────────────
 
-Hello! I'm **[YOUR NAME]**, a passionate Full-Stack
-Developer & UI Engineer based in **[YOUR CITY]**.
+Hello! I'm Siyanbola Adeola Olaoluwa, a passionate Full-Stack
+Software Developer based in Lagos.
 
 I craft elegant, performant interfaces and robust
 backend systems that solve real-world problems.
@@ -38,30 +38,31 @@ the art of software engineering.
 
 ## Currently
 
-- Working on **[YOUR CURRENT ROLE / PROJECT]**
-- Levelling up in **[A SKILL YOU ARE LEARNING]**
+- Working on a clone of Cowrywise
+- Levelling up in Software Engineering (Full Stack Web Development)
 - Available for **remote opportunities** worldwide
 
 
 ## Stack
 
 **Frontend**   TypeScript · React · Next.js · Tailwind CSS
-**Backend**    Node.js · Express · PostgreSQL · Redis
+**Backend**    Node.js · Express · PostgreSQL · Spring Boot · Redis
 **DevOps**     Docker · Linux · CI/CD · Nginx
-**Tools**      Git · Figma · VS Code · Zed
+**Tools**      Git · VS Code · WebStorm IDE · IntelliJ IDEA · Postman  
 
 
 ## Find Me
 
-- GitHub    →  **[YOUR_GITHUB_URL]**
-- LinkedIn  →  **[YOUR_LINKEDIN_URL]**
-- Email     →  **[YOUR_EMAIL_ADDRESS]**
-- Twitter   →  **@[YOUR_TWITTER_HANDLE]**
+- GitHub    →  https://github.com/ShimboJr
+- LinkedIn  →  https://linkedin.com/in/shimbojr
+- Email     →  siyanbolaolaoluwa92@gmail.com
+- Twitter   →  https://x.com/AdeolaSiyanbola
 
 
 ---
+> "Discipline is the bridge between goals and accomplishment"\`
+> "Formal education will make you a living; self-education will make you a fortune"`;
 
-> *"[YOUR_FAVOURITE_QUOTE_OR_TAGLINE]"*`;
 
   /* ══════════════════════════════════════════════════════════
      INSTANCE COUNTER

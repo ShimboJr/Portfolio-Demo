@@ -30,7 +30,7 @@
     { name: 'React & Next.js',         pct: 88 },
     { name: 'CSS & Design Systems',    pct: 85 },
     { name: 'Node.js & Databases',     pct: 80 },
-    { name: 'UI/UX & Figma',           pct: 75 },
+    { name: 'Spring Boot',           pct: 75 },
     { name: 'DevOps & Tooling',        pct: 70 },
   ];
 
@@ -45,7 +45,7 @@
     { name: 'react.exe',      pct: 88, status: 'Running'  },
     { name: 'typescript.exe', pct: 86, status: 'Running'  },
     { name: 'node.exe',       pct: 82, status: 'Running'  },
-    { name: 'figma.exe',      pct: 76, status: 'Running'  },
+    { name: 'springboot.exe',      pct: 76, status: 'Running'  },
     { name: 'docker.exe',     pct: 70, status: 'Running'  },
     // ── Secondary (Sleeping) ─────────────────────────────────
     { name: 'postgresql.exe', pct: 65, status: 'Sleeping' },
@@ -89,7 +89,7 @@
         </div>
         <div class="sm-info-row">
           <span class="sm-info-key">OS</span>
-          <span class="sm-info-val">PortfolioOS 2.0</span>
+          <span class="sm-info-val">ShimboJr PortfolioOS 2.0</span>
         </div>
         <div class="sm-info-row">
           <span class="sm-info-key">Kernel</span>

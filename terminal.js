@@ -43,8 +43,8 @@
   const INSTALL_DATE = new Date('2025-01-15T00:00:00Z');  // fake OS install date
 
   const BIO_LINES = [
-    '<span class="term-bold term-green">Shimbo JR</span> — Full-Stack Developer &amp; UI Engineer',
-    'Specialised in JavaScript / TypeScript, React, Node.js, and Fintech solutions.',
+    '<span class="term-bold term-green">ShimboJr</span> — Full-Stack Developer &amp; DevOps',
+    'Specialised in JavaScript / TypeScript, Java / SpringBoot, React, Node.js, and Fintech solutions.',
     'Passionate about clean UIs and developer tooling. Open to remote opportunities.',
     '',
     '<span class="term-dim">Run </span><span class="term-blue">ls projects/</span>'
@@ -56,10 +56,10 @@
   const CONTACT_LINES = [
     '<span class="term-bold">Contact</span>',
     '<span class="term-dim">──────────────────────────────────────</span>',
-    '<span class="term-mauve">Email   </span>  hello@shimbojr.dev',
-    '<span class="term-mauve">GitHub  </span>  github.com/shimbojr',
+    '<span class="term-mauve">Email   </span>  siyanbolaolaoluwa92@gmail.com',
+    '<span class="term-mauve">GitHub  </span>  github.com/ShimboJr',
     '<span class="term-mauve">LinkedIn</span>  linkedin.com/in/shimbojr',
-    '<span class="term-mauve">Twitter </span>  @shimbojr',
+    '<span class="term-mauve">Twitter </span>  @AdeolaSiyanbola',
     '',
     '<span class="term-dim">Or double-click the Contact icon on the desktop.</span>',
   ];
@@ -629,7 +629,7 @@
     function showWelcome() {
       appendLines([
         `<span class="term-teal">╭─────────────────────────────────────────────────╮</span>`,
-        `<span class="term-teal">│</span>  <span class="term-bold">Portfolio Terminal</span>  ·  PortfolioOS v2.0.0       <span class="term-teal">│</span>`,
+        `<span class="term-teal">│</span>  <span class="term-bold">Portfolio Terminal</span>  ·   PortfolioOS v2.0.0       <span class="term-teal">│</span>`,
         `<span class="term-teal">│</span>  <span class="term-dim">Interactive CLI for exploring my work            </span><span class="term-teal">│</span>`,
         `<span class="term-teal">╰─────────────────────────────────────────────────╯</span>`,
         '',
