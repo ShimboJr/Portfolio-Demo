@@ -83,7 +83,7 @@
       id: 'stub-cowrywise-os',
       title: 'Cowrywise Dashboard',
       description: 'A demo of a banking dashboard for Cowrywise.',
-      tech: ['CSS', 'HTML5', 'JavaScript'],
+      tech: ['CSS', 'HTML5', 'BootStrap', 'JavaScript'],
       github: 'https://github.com/ShimboJr/Cowrywise-Demo',
       live: 'https://sjr-cowrywise.vercel.app',
       image: './images/minions.jpeg',
