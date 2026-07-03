@@ -1,0 +1,418 @@
+/* ============================================================
+   overview.css — GNOME Activities Overview
+   Catppuccin Mocha — via variables.css custom properties.
+
+   Z-index: 2000 (above top-bar 1000, windows 60, dock 50)
+   Hot-corner: 2001 (must intercept above overview itself)
+   ============================================================ */
+
+/* ── Hot corner — 4×4 px invisible trigger at top-left ─────── */
+#hot-corner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  z-index: 2001;
+  cursor: default;
+  pointer-events: all;
+}
+
+/* ════════════════════════════════════════════════════════════
+   OVERLAY BASE
+   ════════════════════════════════════════════════════════════ */
+#overview {
+  position: absolute;
+  inset: 0;
+  z-index: 2000;
+
+  /* Crust at 92 % opacity + blur for modern browsers */
+  background: rgba(17, 17, 27, 0.92);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+
+  /* Hidden-state defaults — toggled by JS */
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
+  transition:
+    opacity    200ms ease,
+    transform  200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: opacity, transform;
+}
+
+#overview.ov-visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SEARCH BAR
+   ════════════════════════════════════════════════════════════ */
+#ov-search-wrap {
+  position: relative;
+  width: min(620px, 88%);
+  margin-top: 52px;
+  flex-shrink: 0;
+  /* Animate in slightly after overlay */
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.ov-search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ctp-overlay1);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+#ov-search {
+  all: unset;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 54px;
+  background: var(--ctp-mantle);
+  border: 1px solid var(--ctp-surface0);
+  border-radius: 27px;
+  padding: 0 24px 0 54px;
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--ctp-text);
+  letter-spacing: 0.01em;
+  caret-color: var(--ctp-blue);
+  transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+}
+
+#ov-search::placeholder {
+  color: var(--ctp-overlay0);
+}
+
+#ov-search:focus {
+  background: color-mix(in srgb, var(--ctp-mantle) 90%, var(--ctp-surface0) 10%);
+  border-color: var(--ctp-surface2);
+  box-shadow:
+    0 0 0 3px rgba(137, 180, 250, 0.14),
+    0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Clear/reset button that browsers add to search inputs */
+#ov-search::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='5.5' fill='%236c7086'/%3E%3Cline x1='4' y1='4' x2='8' y2='8' stroke='%23cdd6f4' stroke-width='1.4' stroke-linecap='round'/%3E%3Cline x1='8' y1='4' x2='4' y2='8' stroke='%23cdd6f4' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  cursor: pointer;
+  opacity: 0.7;
+}
+#ov-search::-webkit-search-cancel-button:hover { opacity: 1; }
+
+/* ════════════════════════════════════════════════════════════
+   SCROLLABLE CONTENT AREA
+   ════════════════════════════════════════════════════════════ */
+#ov-scroll {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 24px;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ctp-surface1) transparent;
+}
+
+#ov-scroll::-webkit-scrollbar        { width: 5px; }
+#ov-scroll::-webkit-scrollbar-track  { background: transparent; }
+#ov-scroll::-webkit-scrollbar-thumb  { background: var(--ctp-surface1); border-radius: 3px; }
+
+#ov-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 28px 0 16px;
+}
+
+/* ── Section header ─────────────────────────────────────── */
+.ov-section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-ui);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ctp-overlay1);
+  margin-bottom: 14px;
+  padding-left: 4px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SEARCH RESULT CARDS  (Projects & Skills)
+   ════════════════════════════════════════════════════════════ */
+#ov-projects-section {
+  margin-bottom: 32px;
+}
+
+.ov-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.ov-result-card {
+  background: rgba(49, 50, 68, 0.38);
+  border: 1px solid var(--ctp-surface0);
+  border-radius: 10px;
+  padding: 13px 15px;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+
+.ov-result-card:hover {
+  background: rgba(49, 50, 68, 0.60);
+  border-color: var(--ctp-surface1);
+  transform: translateY(-2px);
+}
+
+.ov-result-type-badge {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-self: flex-start;
+}
+
+.ov-result-project .ov-result-type-badge {
+  color: var(--ctp-blue);
+  background: rgba(137, 180, 250, 0.12);
+}
+
+.ov-result-skill .ov-result-type-badge {
+  color: var(--ctp-mauve);
+  background: rgba(203, 166, 247, 0.12);
+}
+
+.ov-result-title {
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ctp-text);
+  line-height: 1.3;
+}
+
+.ov-result-desc {
+  font-family: var(--font-ui);
+  font-size: 11.5px;
+  color: var(--ctp-subtext0);
+  line-height: 1.5;
+}
+
+.ov-result-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 4px;
+}
+
+.ov-result-tags span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ctp-overlay2);
+  background: rgba(88, 91, 112, 0.32);
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   APP GRID
+   ════════════════════════════════════════════════════════════ */
+.ov-app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 6px;
+}
+
+.ov-app-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  padding: 18px 8px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  user-select: none;
+  transition:
+    background    160ms ease,
+    border-color  160ms ease,
+    transform     180ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ov-app-tile:hover {
+  background: rgba(49, 50, 68, 0.50);
+  transform: translateY(-4px) scale(1.02);
+}
+
+.ov-app-tile:focus-visible {
+  outline: none;
+  border-color: var(--ctp-blue);
+  background: rgba(49, 50, 68, 0.45);
+}
+
+.ov-app-tile:active {
+  transform: scale(0.95) translateY(0);
+  transition-duration: 80ms;
+}
+
+/* 64×64 rounded icon container */
+.ov-app-icon-wrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.50),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+
+.ov-app-tile:hover .ov-app-icon-wrap {
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.60),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.ov-app-icon-glyph {
+  font-size: 34px;
+  line-height: 1;
+}
+
+.ov-app-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ctp-text);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* No-results notice */
+.ov-empty-notice {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 32px 16px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--ctp-overlay0);
+}
+
+/* ════════════════════════════════════════════════════════════
+   WORKSPACE SWITCHER
+   ════════════════════════════════════════════════════════════ */
+#ov-workspaces {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  padding: 12px 24px 28px;
+  box-sizing: border-box;
+  /* Thin separator line above */
+  border-top: 1px solid rgba(49, 50, 68, 0.55);
+}
+
+.ov-workspace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.ov-workspace:hover { transform: translateY(-3px); }
+
+/* Mini desktop preview rectangle */
+.ov-workspace-thumb {
+  width: 76px;
+  height: 112px;
+  border-radius: 6px;
+  border: 2px solid var(--ctp-surface1);
+  background-color: var(--ctp-base);
+  /* Scaled-down dot-grid wallpaper */
+  background-image: radial-gradient(circle, var(--ctp-mantle) 1px, transparent 1px);
+  background-size: 7px 7px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+/* Mini top-bar strip */
+.ov-workspace-thumb::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 10px;
+  background: var(--ctp-mantle);
+  border-bottom: 1px solid var(--ctp-surface0);
+}
+
+/* Mini dock strip */
+.ov-workspace-thumb::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 52px;
+  height: 9px;
+  background: var(--ctp-mantle);
+  border: 1px solid var(--ctp-surface0);
+  border-radius: 5px;
+}
+
+/* Active workspace highlight */
+.ov-workspace.active .ov-workspace-thumb {
+  border-color: var(--ctp-blue);
+  box-shadow:
+    0 0 0 1px var(--ctp-blue),
+    0 4px 16px rgba(137, 180, 250, 0.28);
+}
+
+.ov-workspace-label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ctp-subtext0);
+  letter-spacing: 0.03em;
+  transition: color 150ms ease;
+}
+
+.ov-workspace.active .ov-workspace-label {
+  color: var(--ctp-blue);
+  font-weight: 600;
+}

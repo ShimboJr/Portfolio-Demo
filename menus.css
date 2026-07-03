@@ -1,0 +1,496 @@
+/* ============================================================
+   menus.css — Context menus, quick-settings panel, power overlays
+   Catppuccin Mocha palette.
+   ============================================================ */
+
+/* ════════════════════════════════════════════════════════════
+   SHARED CONTEXT MENU BASE
+   Used by both the desktop and dock right-click menus.
+   ════════════════════════════════════════════════════════════ */
+.ctx-menu {
+  position: fixed;
+  z-index: 3000;        /* above everything including overview */
+  background: #181825;
+  border: 1px solid #313244;
+  border-radius: 8px;
+  padding: 4px;
+  min-width: 200px;
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.55),
+    0 2px 8px  rgba(0, 0, 0, 0.3);
+  display: none;        /* shown via JS */
+  user-select: none;
+  font-family: var(--font-ui, 'Cantarell', 'Inter', sans-serif);
+  font-size: 13px;
+}
+
+/* Appear animation */
+.ctx-menu.visible {
+  display: block;
+  animation: ctx-pop 120ms cubic-bezier(0.34, 1.3, 0.64, 1) both;
+}
+
+@keyframes ctx-pop {
+  from { opacity: 0; transform: scale(0.93) translateY(-4px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);    }
+}
+
+/* ── Menu items ─────────────────────────────────────────── */
+.ctx-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+  height: 32px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #cdd6f4;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background 80ms ease;
+  white-space: nowrap;
+}
+
+.ctx-item:hover  { background: #313244; }
+.ctx-item:active { background: #45475a; }
+
+.ctx-item.ctx-danger { color: #f38ba8; }
+.ctx-item.ctx-danger:hover { background: rgba(243,139,168,0.12); }
+
+.ctx-item.ctx-checked::before {
+  content: '✓';
+  font-size: 11px;
+  color: #a6e3a1;
+  min-width: 14px;
+}
+
+.ctx-item:not(.ctx-checked)::before {
+  content: '';
+  min-width: 14px;
+}
+
+/* Separator */
+.ctx-sep {
+  height: 1px;
+  background: #313244;
+  margin: 3px 6px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   QUICK-SETTINGS PANEL
+   shell.css owns show/hide (display:none / .open { display:block }).
+   menus.css only provides richer visual styling for the filled content.
+   ════════════════════════════════════════════════════════════ */
+#quick-settings-panel {
+  /* Override shell.css's plain background/border with richer Mocha styling */
+  background: #181825 !important;
+  border-color: #313244 !important;
+  border-radius: 12px !important;
+  padding: 14px 12px 12px !important;
+  z-index: 1800 !important;
+  box-shadow:
+    0 10px 32px rgba(0, 0, 0, 0.5),
+    0 2px 8px  rgba(0, 0, 0, 0.25) !important;
+  font-family: var(--font-ui, 'Cantarell', 'Inter', sans-serif);
+  font-size: 13px;
+  color: #cdd6f4;
+  /* Do NOT touch display/visibility/opacity — shell.css + shell.js own that */
+}
+
+
+/* ── Toggle icon buttons row ─────────────────────────────── */
+.qs-toggles {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.qs-toggle-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 4px 8px;
+  border-radius: 9px;
+  background: #313244;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 10.5px;
+  color: #a6adc8;
+  transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+  white-space: nowrap;
+}
+
+.qs-toggle-btn:hover:not(.qs-on) { background: #45475a; }
+
+.qs-toggle-btn.qs-on {
+  background: rgba(137, 180, 250, 0.18);
+  border-color: rgba(137, 180, 250, 0.5);
+  color: #89b4fa;
+}
+
+.qs-toggle-icon {
+  font-size: 18px;
+  line-height: 1;
+  display: block;
+}
+
+/* ── Sliders (volume + brightness) ──────────────────────── */
+.qs-sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.qs-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qs-slider-label { color: #6c7086; flex-shrink: 0; line-height: 0; }
+
+.qs-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: #313244;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.qs-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #89b4fa;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  transition: transform 100ms ease;
+}
+
+.qs-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+.qs-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: none;
+  border-radius: 50%;
+  background: #89b4fa;
+  cursor: pointer;
+}
+
+/* ── Divider ─────────────────────────────────────────────── */
+.qs-divider {
+  height: 1px;
+  background: #313244;
+  margin: 8px 0;
+}
+
+/* ── Power section ───────────────────────────────────────── */
+.qs-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #585b70;
+  margin-bottom: 8px;
+  padding-left: 2px;
+  user-select: none;
+}
+
+.qs-power-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+.qs-power-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 4px 8px;
+  border-radius: 9px;
+  background: #313244;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 11px;
+  color: #cdd6f4;
+  transition: background 140ms ease, border-color 140ms ease;
+  white-space: nowrap;
+}
+
+.qs-power-btn:hover { background: #45475a; }
+
+.qs-power-btn.qs-danger { color: #f38ba8; }
+.qs-power-btn.qs-danger:hover {
+  background: rgba(243,139,168,0.14);
+  border-color: rgba(243,139,168,0.4);
+}
+
+.qs-power-icon {
+  font-size: 17px;
+  line-height: 1;
+  display: block;
+}
+
+/* ════════════════════════════════════════════════════════════
+   POWER OVERLAYS  (Suspend / Power Off)
+   ════════════════════════════════════════════════════════════ */
+.power-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-family: var(--font-ui, 'Cantarell', 'Inter', sans-serif);
+  animation: po-fade-in 700ms ease both;
+}
+
+@keyframes po-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.power-overlay-icon {
+  font-size: 56px;
+  opacity: 0.55;
+  line-height: 1;
+}
+
+.power-overlay-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+}
+
+.power-overlay-hint {
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+  margin-top: -4px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   DOCK — faded icon (removed from favorites)
+   ════════════════════════════════════════════════════════════ */
+.dock-item.ctx-faded {
+  opacity: 0.35;
+  transition: opacity 400ms ease;
+  pointer-events: none;   /* prevent clicking a "removed" icon */
+}
+
+/* ════════════════════════════════════════════════════════════
+   WALLPAPER PICKER PANEL
+   Floats at cursor position after "Change Background" click.
+   Inherits .ctx-menu for base shadow / animation.
+   ════════════════════════════════════════════════════════════ */
+.wp-panel {
+  width: 272px;
+  padding: 0;
+  overflow: hidden;  /* so header bg doesn't bleed past border-radius */
+}
+
+/* ── Panel header ─────────────────────────────────────────── */
+.wp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px 8px;
+  background: #11111b;
+  border-bottom: 1px solid #313244;
+  user-select: none;
+}
+
+.wp-header-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #cdd6f4;
+  letter-spacing: 0.01em;
+}
+
+.wp-close-btn {
+  background: transparent;
+  border: none;
+  color: #6c7086;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 100ms, color 100ms;
+}
+
+.wp-close-btn:hover { background: #313244; color: #cdd6f4; }
+
+/* ── Body (scroll if needed) ─────────────────────────────── */
+.wp-body {
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Section label ───────────────────────────────────────── */
+.wp-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #585b70;
+  margin-bottom: -4px;
+  user-select: none;
+}
+
+/* ── Color swatches grid ─────────────────────────────────── */
+.wp-swatches {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+}
+
+.wp-swatch {
+  aspect-ratio: 1;
+  border-radius: 7px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 120ms ease, transform 120ms ease;
+  outline: none;
+}
+
+.wp-swatch:hover { transform: scale(1.1); }
+.wp-swatch:focus-visible { outline: 2px solid #89b4fa; outline-offset: 2px; }
+
+/* Checkmark on active swatch */
+.wp-swatch.wp-active { border-color: #89b4fa; }
+.wp-swatch.wp-active::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+
+/* ── File upload row ─────────────────────────────────────── */
+.wp-file-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wp-choose-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  background: #313244;
+  border: 1px solid #45475a;
+  border-radius: 7px;
+  color: #cdd6f4;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 100ms, border-color 100ms;
+}
+
+.wp-choose-btn:hover { background: #45475a; border-color: #585b70; }
+
+.wp-filename {
+  font-size: 11.5px;
+  color: #6c7086;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* ── URL row ─────────────────────────────────────────────── */
+.wp-url-row { display: flex; gap: 6px; }
+
+.wp-url-input {
+  flex: 1;
+  min-width: 0;
+  background: #313244;
+  border: 1.5px solid #45475a;
+  border-radius: 7px;
+  color: #cdd6f4;
+  font-family: inherit;
+  font-size: 12px;
+  padding: 7px 10px;
+  outline: none;
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.wp-url-input::placeholder { color: #585b70; }
+.wp-url-input:focus {
+  border-color: #89b4fa;
+  box-shadow: 0 0 0 3px rgba(137,180,250,0.15);
+}
+
+.wp-apply-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  background: #89b4fa;
+  color: #11111b;
+  border: none;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 140ms ease;
+}
+
+.wp-apply-btn:hover   { opacity: 0.88; }
+.wp-apply-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Error / info message ────────────────────────────────── */
+.wp-msg {
+  font-size: 11.5px;
+  line-height: 1.4;
+  border-radius: 5px;
+  padding: 5px 8px;
+  display: none;
+}
+
+.wp-msg.wp-msg-error { display: block; color: #f38ba8; background: rgba(243,139,168,0.1); }
+.wp-msg.wp-msg-info  { display: block; color: #a6e3a1; background: rgba(166,227,161,0.1); }
+
+/* Loading spinner inside Apply button */
+.wp-spinner {
+  width: 11px; height: 11px;
+  border: 2px solid rgba(17,17,27,0.3);
+  border-top-color: #11111b;
+  border-radius: 50%;
+  animation: ct-spin 550ms linear infinite;
+  display: inline-block;
+}
+

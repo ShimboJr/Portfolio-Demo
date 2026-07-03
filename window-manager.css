@@ -1,0 +1,300 @@
+/* ============================================================
+   window-manager.css — GNOME CSD window chrome
+   Catppuccin Mocha — via variables.css custom properties.
+
+   Z-index stack within #desktop-shell (position:fixed → s.c.):
+     #top-bar              1000   always floats above everything
+     #quick-settings-panel  200   above windows (shell.css value works)
+     #window-layer           60   windows live here (above dock)
+       .wm-window            1+   focus-managed locally
+     #dock-wrapper           50   behind open windows
+     .desktop-icon (drag)    20   behind dock
+   ============================================================ */
+
+/* ── Lift top-bar above window layer (shell.css had 100) ─── */
+#top-bar {
+  z-index: 1000;
+}
+
+/* ── Window layer container ─────────────────────────────── */
+#window-layer {
+  position: absolute;
+  top: 36px;            /* flush under the top-bar                  */
+  left: 0; right: 0; bottom: 0;
+  z-index: 60;          /* stacking context — windows live inside it */
+  pointer-events: none; /* transparent to clicks between windows     */
+  overflow: visible;    /* windows may extend to viewport edges      */
+}
+
+/* ════════════════════════════════════════════════════════════
+   BASE WINDOW
+   ════════════════════════════════════════════════════════════ */
+.wm-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 8px;
+  border: 1px solid var(--ctp-surface0);   /* #313244 unfocused */
+  background: var(--ctp-base);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.40),
+    0 2px  6px rgba(0, 0, 0, 0.25);
+
+  min-width:  320px;
+  min-height: 240px;
+  overflow: hidden;
+  pointer-events: auto;   /* re-enable within the pass-through layer */
+  will-change: transform; /* hint GPU for drag/resize                */
+
+  /* Open animation */
+  animation: wmOpen 220ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-origin: top center;
+}
+
+@keyframes wmOpen {
+  from { opacity: 0; transform: scale(0.94) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);   }
+}
+
+/* Close animation — added by JS before removal */
+.wm-window.closing {
+  animation: wmClose 150ms ease forwards !important;
+  pointer-events: none;
+}
+
+@keyframes wmClose {
+  from { opacity: 1; transform: scale(1)    translateY(0);   }
+  to   { opacity: 0; transform: scale(0.93) translateY(10px); }
+}
+
+/* ── Active / focused state ─────────────────────────────── */
+.wm-window.active {
+  border-color: var(--ctp-surface1);      /* #45475a — brighter */
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.55),
+    0  3px  8px rgba(0, 0, 0, 0.30);
+}
+
+/* ── Maximized state ────────────────────────────────────── */
+.wm-window.maximized {
+  border-radius: 0 !important;
+  border-color:  transparent !important;
+  box-shadow:    none !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   TITLEBAR
+   ════════════════════════════════════════════════════════════ */
+.wm-titlebar {
+  flex-shrink: 0;
+  height: 36px;
+  background: var(--ctp-mantle);
+  border-bottom: 1px solid var(--ctp-surface0);
+  border-radius: 8px 8px 0 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px 0 12px;
+
+  cursor: grab;
+  user-select: none;
+  transition: background 150ms ease;
+}
+
+.wm-titlebar:active { cursor: grabbing; }
+
+.wm-window.maximized .wm-titlebar { border-radius: 0; }
+
+/* Inactive window dims the titlebar slightly */
+.wm-window:not(.active) .wm-titlebar {
+  background: color-mix(in srgb, var(--ctp-mantle) 80%, var(--ctp-crust) 20%);
+}
+
+/* ── Title left: icon + label ───────────────────────────── */
+.wm-title-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.wm-app-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.wm-title-text {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ctp-text);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity 150ms ease;
+}
+
+.wm-window:not(.active) .wm-title-text { opacity: 0.45; }
+
+/* ── Titlebar control buttons (GNOME order: min, max, close) */
+.wm-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.wm-btn {
+  all: unset;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ctp-subtext1);
+  transition:
+    background 120ms ease,
+    color      120ms ease,
+    transform   80ms ease;
+  flex-shrink: 0;
+}
+
+.wm-btn:focus-visible {
+  outline: 2px solid var(--ctp-blue);
+  outline-offset: 2px;
+}
+
+.wm-btn svg { pointer-events: none; flex-shrink: 0; }
+
+/* Minimize */
+.wm-btn-minimize:hover  { background: var(--ctp-surface0); color: var(--ctp-text); }
+.wm-btn-minimize:active { transform: scale(0.85); }
+
+/* Maximize / Restore */
+.wm-btn-maximize:hover  { background: var(--ctp-surface0); color: var(--ctp-text); }
+.wm-btn-maximize:active { transform: scale(0.85); }
+
+/* Close — Red on hover */
+.wm-btn-close:hover  { background: var(--ctp-red); color: #ffffff; }
+.wm-btn-close:active { background: var(--ctp-maroon); color: #ffffff; transform: scale(0.85); }
+
+/* ════════════════════════════════════════════════════════════
+   WINDOW BODY
+   ════════════════════════════════════════════════════════════ */
+.wm-body {
+  flex: 1;
+  min-height: 0;         /* critical: lets flex child shrink below content size */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px;
+  background: var(--ctp-base);
+  border-radius: 0 0 8px 8px;
+
+  /* Styled scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--ctp-surface1) transparent;
+}
+
+.wm-body::-webkit-scrollbar        { width: 6px; }
+.wm-body::-webkit-scrollbar-track  { background: transparent; }
+.wm-body::-webkit-scrollbar-thumb  {
+  background: var(--ctp-surface1);
+  border-radius: 3px;
+}
+.wm-body::-webkit-scrollbar-thumb:hover { background: var(--ctp-surface2); }
+
+.wm-window.maximized .wm-body { border-radius: 0; }
+
+/* ════════════════════════════════════════════════════════════
+   RESIZE HANDLES  (8 invisible hit-areas, 8px thick)
+   ════════════════════════════════════════════════════════════ */
+.wm-resize {
+  position: absolute;
+  z-index: 20;
+  touch-action: none;
+}
+
+/* Edge handles */
+.wm-resize-n  { top: -3px; left: 12px; right: 12px; height: 8px; cursor: n-resize;  }
+.wm-resize-s  { bottom: -3px; left: 12px; right: 12px; height: 8px; cursor: s-resize;  }
+.wm-resize-e  { top: 12px; right: -3px; bottom: 12px; width: 8px;  cursor: e-resize;  }
+.wm-resize-w  { top: 12px; left: -3px;  bottom: 12px; width: 8px;  cursor: w-resize;  }
+
+/* Corner handles (slightly larger hit area) */
+.wm-resize-ne { top: -3px; right: -3px; width: 18px; height: 18px; cursor: ne-resize; }
+.wm-resize-nw { top: -3px; left: -3px;  width: 18px; height: 18px; cursor: nw-resize; }
+.wm-resize-se { bottom: -3px; right: -3px; width: 18px; height: 18px; cursor: se-resize; }
+.wm-resize-sw { bottom: -3px; left: -3px;  width: 18px; height: 18px; cursor: sw-resize; }
+
+/* Suppress resize when maximized */
+.wm-window.maximized .wm-resize { display: none; }
+
+/* ════════════════════════════════════════════════════════════
+   PLACEHOLDER CONTENT  (app not yet built)
+   ════════════════════════════════════════════════════════════ */
+.wm-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 220px;
+  height: 100%;
+  text-align: center;
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+
+.wm-placeholder-icon {
+  font-size: 48px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.wm-placeholder-title {
+  font-family: var(--font-ui);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ctp-text);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.wm-placeholder-sub {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--ctp-overlay1);
+  margin: 0;
+  line-height: 1.65;
+  max-width: 340px;
+}
+
+.wm-placeholder-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--ctp-mauve);
+  background: rgba(203, 166, 247, 0.10);
+  border: 1px solid rgba(203, 166, 247, 0.28);
+  border-radius: 20px;
+  padding: 5px 14px;
+  margin-top: 4px;
+}

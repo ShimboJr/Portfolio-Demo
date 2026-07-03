@@ -1,0 +1,179 @@
+/* ============================================================
+   boot.css — BIOS POST screen + loading spinner styles
+   ============================================================ */
+
+/* ── Layer ordering ─────────────────────────────────────────
+   #bios-screen   z-index 1000  (top-most during POST)
+   #boot-spinner  z-index 900   (shown after BIOS fades)
+   #desktop-shell z-index 0     (always behind until boot done)
+   ────────────────────────────────────────────────────────── */
+
+/* ── Shared full-viewport overlay helper ────────────────── */
+.boot-layer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  transition: opacity var(--transition-normal);
+}
+
+/* ── Visibility helpers ──────────────────────────────────── */
+.boot-layer.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-layer.gone {
+  display: none;
+}
+
+/* ================================================================
+   BIOS POST screen
+   ================================================================ */
+
+#bios-screen {
+  z-index: 1000;
+  background-color: var(--ctp-crust);
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 1.5vw, 15px);
+  line-height: 1.65;
+  color: var(--ctp-subtext0);
+  padding: 2em 2.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* ── Vendor / header line ──────────────────────────────────── */
+#bios-vendor {
+  color: var(--ctp-text);
+  font-size: 1.05em;
+  margin-bottom: 1.1em;
+  letter-spacing: 0.02em;
+}
+
+/* ── POST log area ─────────────────────────────────────────── */
+#bios-log {
+  flex: 1;
+  overflow: hidden;
+}
+
+#bios-log .post-line {
+  display: block;
+  white-space: pre;
+  opacity: 0;
+  animation: fadeInLine 80ms ease forwards;
+}
+
+@keyframes fadeInLine {
+  from { opacity: 0; transform: translateX(-4px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Colour accents inside POST lines ─────────────────────── */
+#bios-log .ok   { color: var(--ctp-green);   }
+#bios-log .warn { color: var(--ctp-yellow);  }
+#bios-log .info { color: var(--ctp-blue);    }
+#bios-log .dim  { color: var(--ctp-overlay0);}
+#bios-log .val  { color: var(--ctp-mauve);   }
+
+/* ── Blinking cursor block ─────────────────────────────────── */
+#bios-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  background: var(--ctp-subtext0);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  opacity: 0;              /* shown by JS when POST finishes   */
+  animation: blinkCursor 900ms step-start infinite;
+}
+
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Skip hint ─────────────────────────────────────────────── */
+#bios-skip-hint {
+  position: absolute;
+  bottom: 1.6em;
+  right: 2.5em;
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  color: var(--ctp-overlay0);
+  letter-spacing: 0.03em;
+  user-select: none;
+  pointer-events: none;
+  animation: hintPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.45; }
+  50%       { opacity: 0.75; }
+}
+
+/* ── Horizontal rule separator ─────────────────────────────── */
+#bios-screen hr.bios-rule {
+  border: none;
+  border-top: 1px solid var(--ctp-surface0);
+  margin: 0.6em 0;
+}
+
+/* ================================================================
+   Boot spinner (GNOME-style thin-ring)
+   ================================================================ */
+
+#boot-spinner {
+  z-index: 900;
+  background-color: var(--ctp-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.4em;
+}
+
+.spinner-ring {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--ctp-blue);
+  border-right-color: color-mix(in srgb, var(--ctp-blue) 35%, transparent);
+  animation: spinRing 700ms linear infinite;
+}
+
+@keyframes spinRing {
+  to { transform: rotate(360deg); }
+}
+
+.spinner-label {
+  font-family: var(--font-ui);
+  font-size: 0.8em;
+  color: var(--ctp-overlay1);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* ================================================================
+   Desktop shell placeholder
+   ================================================================ */
+
+#desktop-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--ctp-base);
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+  pointer-events: none;
+}
+
+#desktop-shell.active {
+  opacity: 1;
+  pointer-events: auto;
+}

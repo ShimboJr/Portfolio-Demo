@@ -1,0 +1,164 @@
+/* ============================================================
+   terminal.css — Portfolio Terminal App
+   Catppuccin Mocha palette, JetBrains Mono typography.
+   ============================================================ */
+
+/* ── Override .wm-body when it hosts a terminal ─────────── */
+/* CSS :has() — Chrome 105+, Firefox 121+, Safari 15.4+     */
+.wm-body:has(.term-root) {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  background: var(--ctp-crust);   /* #11111b */
+}
+
+/* ════════════════════════════════════════════════════════════
+   TERMINAL ROOT
+   ════════════════════════════════════════════════════════════ */
+.term-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background: var(--ctp-crust);
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ctp-text);
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════════════════════════
+   OUTPUT AREA
+   ════════════════════════════════════════════════════════════ */
+.term-output {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px 16px 8px;
+  word-break: break-word;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ctp-surface0) transparent;
+}
+
+.term-output::-webkit-scrollbar       { width: 5px; }
+.term-output::-webkit-scrollbar-track { background: transparent; }
+.term-output::-webkit-scrollbar-thumb {
+  background: var(--ctp-surface0);
+  border-radius: 3px;
+}
+.term-output::-webkit-scrollbar-thumb:hover { background: var(--ctp-surface1); }
+
+/* ── Output line types ────────────────────────────────────── */
+
+/* A block of output from a command result */
+.term-out {
+  display: block;
+  white-space: pre-wrap;
+}
+
+/* A line echoing the user's command (prompt + typed text) */
+.term-echo {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin-top: 6px;
+}
+
+/* Typed command text after the echo-prompt */
+.term-cmd-text {
+  color: var(--ctp-text);
+  white-space: pre-wrap;
+}
+
+/* Blank separator between command blocks */
+.term-blank { display: block; height: 2px; }
+
+/* ════════════════════════════════════════════════════════════
+   PROMPT COLOURS
+   ════════════════════════════════════════════════════════════ */
+.term-prompt-inline {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.term-user-host { color: #a6e3a1; /* Green   */ }
+.term-sep       { color: #cdd6f4; /* Text    */ }
+.term-path      { color: #89b4fa; /* Blue    */ }
+.term-dollar    { color: #cdd6f4; /* Text    */ }
+
+/* ════════════════════════════════════════════════════════════
+   COLOUR UTILITIES  (for command output)
+   ════════════════════════════════════════════════════════════ */
+.term-green   { color: #a6e3a1; }
+.term-blue    { color: #89b4fa; }
+.term-yellow  { color: #f9e2af; }
+.term-red     { color: #f38ba8; }
+.term-mauve   { color: #cba6f7; }
+.term-teal    { color: #94e2d5; }
+.term-peach   { color: #fab387; }
+.term-pink    { color: #f5c2e7; }
+.term-lav     { color: #b4befe; }
+.term-sky     { color: #89dceb; }
+.term-subtext { color: #bac2de; }
+.term-overlay { color: #9399b2; }
+.term-dim     { color: #6c7086; }
+.term-bold    { font-weight: 700; }
+.term-error   { color: #f38ba8; }
+.term-success { color: #a6e3a1; }
+.term-warn    { color: #f9e2af; }
+
+/* ════════════════════════════════════════════════════════════
+   INPUT ROW  (fixed bottom bar)
+   ════════════════════════════════════════════════════════════ */
+.term-input-row {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 5px 16px 8px;
+  background: var(--ctp-crust);
+  border-top: 1px solid var(--ctp-mantle);
+  gap: 0;
+}
+
+.term-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: var(--ctp-text);
+  caret-color: var(--ctp-text);
+  padding: 0;
+  margin: 0;
+  letter-spacing: inherit;
+}
+
+/* Remove browser default search styles */
+.term-input::-webkit-search-cancel-button  { display: none; }
+.term-input::-webkit-search-decoration     { display: none; }
+
+/* Blinking caret override – kept native for compatibility */
+.term-input:focus { caret-color: #cdd6f4; }
+
+/* ════════════════════════════════════════════════════════════
+   WIZARD STYLES
+   ════════════════════════════════════════════════════════════ */
+.term-wizard-hdr  { color: #cba6f7; }
+.term-wizard-q    { color: #b4befe; }
+.term-wizard-hint { color: #6c7086; font-style: italic; }
+
+/* ════════════════════════════════════════════════════════════
+   WELCOME BANNER
+   ════════════════════════════════════════════════════════════ */
+.term-banner-border { color: #94e2d5; }
+.term-banner-title  { color: #cdd6f4; font-weight: 700; }
+.term-banner-sub    { color: #6c7086; }

@@ -1,0 +1,49 @@
+/* ============================================================
+   variables.css — Catppuccin Mocha design tokens
+   Referenced by all stylesheets in the portfolio OS project.
+   ============================================================ */
+
+:root {
+  /* ── Base surfaces ─────────────────────────────────────── */
+  --ctp-base:    #1e1e2e;
+  --ctp-mantle:  #181825;
+  --ctp-crust:   #11111b;
+
+  /* ── Text ──────────────────────────────────────────────── */
+  --ctp-text:      #cdd6f4;
+  --ctp-subtext1:  #bac2de;
+  --ctp-subtext0:  #a6adc8;
+
+  /* ── Surfaces ───────────────────────────────────────────── */
+  --ctp-surface0:  #313244;
+  --ctp-surface1:  #45475a;
+  --ctp-surface2:  #585b70;
+
+  /* ── Overlays ───────────────────────────────────────────── */
+  --ctp-overlay0:  #6c7086;
+  --ctp-overlay1:  #7f849c;
+  --ctp-overlay2:  #9399b2;
+
+  /* ── Accent colours ─────────────────────────────────────── */
+  --ctp-blue:      #89b4fa;
+  --ctp-lavender:  #b4befe;
+  --ctp-sapphire:  #74c7ec;
+  --ctp-sky:       #89dceb;
+  --ctp-teal:      #94e2d5;
+  --ctp-green:     #a6e3a1;
+  --ctp-yellow:    #f9e2af;
+  --ctp-peach:     #fab387;
+  --ctp-maroon:    #eba0ac;
+  --ctp-red:       #f38ba8;
+  --ctp-mauve:     #cba6f7;
+  --ctp-pink:      #f5c2e7;
+
+  /* ── Typography ─────────────────────────────────────────── */
+  --font-ui:   'Cantarell', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Motion ─────────────────────────────────────────────── */
+  --transition-fast:   150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow:   600ms ease;
+}

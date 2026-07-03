@@ -1,0 +1,452 @@
+/* ============================================================
+   shell.css — GNOME Shell 47 desktop
+   Catppuccin Mocha — via variables.css custom properties.
+   All z-indices: top-bar 100 | dock 50 | icon(drag) 20
+   ============================================================ */
+
+/* ── Desktop shell layout container ─────────────────────── */
+/* #desktop-shell base (position/opacity/transition) lives in
+   boot.css so the fade-in works before this sheet loads.   */
+#desktop-shell {
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════════════════════════
+   TOP BAR
+   ════════════════════════════════════════════════════════════ */
+#top-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 36px;
+  background: var(--ctp-mantle);
+  border-bottom: 1px solid var(--ctp-surface0);
+  display: flex;
+  align-items: center;
+  z-index: 100;
+  user-select: none;
+  /* subtle bottom shadow so it floats above wallpaper */
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Three columns ──────────────────────────────────────── */
+#top-bar-left,
+#top-bar-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+#top-bar-left  { justify-content: flex-start; padding-left: 2px; }
+#top-bar-right { justify-content: flex-end;   padding-right: 6px; }
+#top-bar-center {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+}
+
+/* ── Activities button ───────────────────────────────────── */
+#activities-btn {
+  all: unset;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ctp-text);
+  padding: 0 12px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.01em;
+  transition: background var(--transition-fast), color var(--transition-fast);
+  white-space: nowrap;
+}
+#activities-btn:hover  { background: var(--ctp-surface0); }
+#activities-btn:active { background: var(--ctp-surface1); }
+#activities-btn:focus-visible {
+  outline: 2px solid var(--ctp-blue);
+  outline-offset: 2px;
+}
+
+/* ── Clock ───────────────────────────────────────────────── */
+#top-bar-clock {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ctp-text);
+  letter-spacing: 0.015em;
+  white-space: nowrap;
+  cursor: default;
+}
+
+/* ── System tray container ───────────────────────────────── */
+#system-tray {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* Clickable tray indicator group (network + volume + battery) */
+#tray-indicators {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  height: 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  margin-right: 4px;
+}
+#tray-indicators:hover { background: var(--ctp-surface0); }
+
+/* Individual tray icon */
+.tray-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ctp-text);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ── Power button ────────────────────────────────────────── */
+#power-btn {
+  all: unset;
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ctp-text);
+  transition: background var(--transition-fast), color var(--transition-fast);
+  margin-left: 2px;
+}
+#power-btn:hover  { background: var(--ctp-surface0); color: var(--ctp-red); }
+#power-btn:active { background: var(--ctp-surface1); }
+#power-btn:focus-visible {
+  outline: 2px solid var(--ctp-blue);
+  outline-offset: 2px;
+}
+
+/* ── Quick-settings dropdown stub ───────────────────────── */
+#quick-settings-panel {
+  position: absolute;
+  top: 40px;
+  right: 8px;
+  min-width: 280px;
+  background: var(--ctp-mantle);
+  border: 1px solid var(--ctp-surface1);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+  z-index: 200;
+  display: none;                 /* shown by shell.js on click  */
+  animation: dropIn 180ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+#quick-settings-panel.open { display: block; }
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   DESKTOP AREA
+   ════════════════════════════════════════════════════════════ */
+#desktop-area {
+  position: absolute;
+  top: 36px; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+
+  /* Dot-grid wallpaper — pure CSS, no image */
+  background-color: var(--ctp-base);
+  background-image: radial-gradient(
+    circle,
+    var(--ctp-mantle) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+}
+
+/* ── Desktop context menu stub ──────────────────────────── */
+#desktop-context-menu {
+  position: absolute;
+  min-width: 180px;
+  background: var(--ctp-surface0);
+  border: 1px solid var(--ctp-surface2);
+  border-radius: 8px;
+  padding: 4px 0;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+  z-index: 60;
+  display: none;
+}
+#desktop-context-menu.open { display: block; }
+
+/* ════════════════════════════════════════════════════════════
+   DESKTOP ICONS
+   ════════════════════════════════════════════════════════════ */
+.desktop-icon {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 84px;
+  cursor: default;
+  user-select: none;
+  padding: 6px 4px 7px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition:
+    border-color 120ms ease,
+    background 120ms ease;
+  /* Prevent text selection while dragging */
+  -webkit-user-drag: none;
+}
+
+/* Hover glow */
+.desktop-icon:hover {
+  background: rgba(49, 50, 68, 0.25);  /* surface0 @25% */
+}
+
+/* Selected state */
+.desktop-icon.selected {
+  border-color: var(--ctp-surface1);
+  background: rgba(69, 71, 90, 0.30);  /* surface1 @30% */
+}
+
+/* While dragging */
+.desktop-icon.dragging {
+  opacity: 0.72;
+  cursor: grabbing !important;
+  z-index: 20;
+  border-color: var(--ctp-overlay0);
+  background: rgba(49, 50, 68, 0.45);
+}
+
+/* ── Icon figure (48×48 rounded-square container) ───────── */
+.icon-figure {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 160ms ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.desktop-icon:hover .icon-figure {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+.desktop-icon.dragging .icon-figure {
+  transform: scale(1.0) translateY(0);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+}
+
+/* ── Per-app icon figure colours ───────────────────────── */
+/* Gradient backgrounds that complement each icon's accent   */
+.icon-figure.app-about     { background: linear-gradient(145deg, #1a2248 0%, #252d5a 100%); }
+.icon-figure.app-projects  { background: linear-gradient(145deg, #1e1438 0%, #2c1f4e 100%); }
+.icon-figure.app-resume    { background: linear-gradient(145deg, #0e2418 0%, #182f22 100%); }
+.icon-figure.app-terminal  { background: linear-gradient(145deg, #0c2424 0%, #183030 100%); }
+.icon-figure.app-trash     { background: linear-gradient(145deg, #1e1e2e 0%, #282838 100%); }
+
+/* ── Icon label ─────────────────────────────────────────── */
+.icon-label {
+  font-family: var(--font-ui);
+  font-size: 11.5px;
+  font-weight: 400;
+  color: var(--ctp-text);
+  text-align: center;
+  line-height: 1.3;
+  width: 100%;
+  word-break: break-word;
+  padding: 0 4px;
+  border-radius: 8px;
+  /* Legibility on busy wallpaper */
+  text-shadow: 0 1px 4px rgba(0,0,0,0.7), 0 0 10px rgba(0,0,0,0.5);
+  transition: background 120ms ease, padding 120ms ease;
+}
+
+/* Pill highlight on selected icon */
+.desktop-icon.selected .icon-label {
+  background: rgba(49, 50, 68, 0.85);
+  text-shadow: none;
+  padding: 2px 6px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   DOCK
+   ════════════════════════════════════════════════════════════ */
+#dock-wrapper {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  /* Auto-hide transition */
+  transition:
+    transform 280ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity   280ms ease;
+}
+
+#dock-wrapper.dock-hidden {
+  transform: translateX(-50%) translateY(calc(100% + 16px));
+  opacity: 0;
+  pointer-events: none;
+}
+
+#dock {
+  display: flex;
+  align-items: flex-end;       /* align bottom so tooltip pops up */
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--ctp-mantle);
+  border: 1px solid var(--ctp-surface0);
+  border-radius: 20px;
+  box-shadow:
+    0 4px 32px rgba(0, 0, 0, 0.55),
+    0 1px 6px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+/* ── Dock separator ──────────────────────────────────────── */
+.dock-sep {
+  width: 1px;
+  height: 28px;
+  background: var(--ctp-surface1);
+  opacity: 0.55;
+  margin: 0 2px;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* ── Dock item wrapper ───────────────────────────────────── */
+.dock-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+/* ── Dock icon button ────────────────────────────────────── */
+.dock-icon-btn {
+  all: unset;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ctp-text);
+  /* will-change hints for GPU-accelerated scale */
+  will-change: transform;
+  transition:
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 160ms ease,
+    filter 160ms ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.dock-icon-btn:hover {
+  transform: scale(1.15) translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.55);
+  filter: brightness(1.1);
+}
+
+.dock-icon-btn:active {
+  transform: scale(0.95) translateY(-2px);
+  transition-duration: 80ms;
+}
+
+/* ── Per-app dock icon backgrounds ──────────────────────── */
+.dock-icon-btn.dock-terminal  { background: linear-gradient(145deg, #0c2424, #183030); }
+.dock-icon-btn.dock-files     { background: linear-gradient(145deg, #2a1e08, #3a2c12); }
+.dock-icon-btn.dock-texteditor{ background: linear-gradient(145deg, #0d1f30, #162a3c); }
+.dock-icon-btn.dock-sysmon    { background: linear-gradient(145deg, #0f2018, #192c20); }
+.dock-icon-btn.dock-settings  { background: linear-gradient(145deg, #1a1a28, #242438); }
+.dock-icon-btn.dock-trash     { background: linear-gradient(145deg, #1e1e2e, #28283a); }
+
+/* ── Active dot indicator ────────────────────────────────── */
+.dock-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ctp-blue);
+  opacity: 0;
+  transition: opacity 200ms ease, transform 200ms ease;
+  transform: scale(0.6);
+}
+
+.dock-item.active .dock-dot {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Tooltip ─────────────────────────────────────────────── */
+.dock-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--ctp-surface1);
+  color: var(--ctp-text);
+  font-family: var(--font-ui);
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 4px 9px;
+  border-radius: 7px;
+  border: 1px solid var(--ctp-surface2);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease;
+  /* keep tooltip above everything */
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* Small arrow */
+.dock-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: var(--ctp-surface2);
+}
+
+.dock-item:hover .dock-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE — desktop-first, ≥1280px nominal
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 1280px) {
+  .desktop-icon { width: 76px; }
+  .icon-figure  { width: 44px; height: 44px; border-radius: 12px; }
+  .icon-label   { font-size: 10.5px; }
+
+  #dock { gap: 4px; padding: 7px 10px; }
+  .dock-icon-btn { width: 40px; height: 40px; border-radius: 11px; }
+}

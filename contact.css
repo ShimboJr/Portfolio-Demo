@@ -1,0 +1,251 @@
+/* ============================================================
+   contact.css — Mail-composer style Contact app
+   ============================================================ */
+
+/* ── wm-body override ─────────────────────────────────────── */
+.wm-body:has(.ct-root) {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #1e1e2e;
+}
+
+/* ════════════════════════════════════════════════════════════
+   ROOT
+   ════════════════════════════════════════════════════════════ */
+.ct-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 28px 32px 32px;
+  font-family: var(--font-ui, 'Cantarell', 'Inter', sans-serif);
+  font-size: 13px;
+  color: #cdd6f4;
+  background: #1e1e2e;
+  scrollbar-width: thin;
+  scrollbar-color: #313244 transparent;
+}
+
+.ct-root::-webkit-scrollbar       { width: 6px; }
+.ct-root::-webkit-scrollbar-thumb { background: #313244; border-radius: 3px; }
+
+/* ════════════════════════════════════════════════════════════
+   HEADER
+   ════════════════════════════════════════════════════════════ */
+.ct-header { margin-bottom: 22px; }
+
+.ct-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #cdd6f4;
+  letter-spacing: -0.01em;
+  margin-bottom: 5px;
+}
+
+.ct-subtitle {
+  font-size: 12.5px;
+  color: #6c7086;
+  line-height: 1.55;
+}
+
+/* ════════════════════════════════════════════════════════════
+   FORM
+   ════════════════════════════════════════════════════════════ */
+.ct-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Two equal-width columns for Name + Email */
+.ct-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.ct-field-group { display: flex; flex-direction: column; gap: 6px; }
+
+.ct-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #6c7086;
+  user-select: none;
+}
+
+/* Shared input / textarea base */
+.ct-input,
+.ct-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: #313244;
+  border: 1.5px solid #45475a;
+  border-radius: 8px;
+  color: #cdd6f4;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 10px 13px;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  -webkit-appearance: none;
+}
+
+.ct-input::placeholder,
+.ct-textarea::placeholder { color: #585b70; }
+
+.ct-input:hover:not(:focus),
+.ct-textarea:hover:not(:focus) { border-color: #585b70; }
+
+.ct-input:focus,
+.ct-textarea:focus {
+  border-color: #89b4fa;
+  box-shadow: 0 0 0 3px rgba(137, 180, 250, 0.15);
+}
+
+/* Validation error state */
+.ct-input.ct-error,
+.ct-textarea.ct-error {
+  border-color: #f38ba8;
+  box-shadow: 0 0 0 3px rgba(243, 139, 168, 0.12);
+}
+
+.ct-error-msg {
+  font-size: 11.5px;
+  color: #f38ba8;
+  display: none;
+  margin-top: -2px;
+}
+
+.ct-error-msg.visible { display: block; }
+
+/* Textarea specifics */
+.ct-textarea {
+  resize: vertical;
+  min-height: 108px;
+}
+
+/* ── Form footer row ──────────────────────────────────────── */
+.ct-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ct-form-note {
+  font-size: 11.5px;
+  color: #585b70;
+}
+
+/* ── Submit button ────────────────────────────────────────── */
+.ct-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: #89b4fa;
+  color: #11111b;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+  box-shadow: 0 2px 10px rgba(137, 180, 250, 0.28);
+  white-space: nowrap;
+}
+
+.ct-submit:hover:not(:disabled) {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 18px rgba(137, 180, 250, 0.42);
+}
+
+.ct-submit:active:not(:disabled) { transform: translateY(0); }
+
+.ct-submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ── Loading state spinner inside button ──────────────────── */
+.ct-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(17,17,27,0.3);
+  border-top-color: #11111b;
+  border-radius: 50%;
+  animation: ct-spin 600ms linear infinite;
+}
+
+@keyframes ct-spin { to { transform: rotate(360deg); } }
+
+/* ════════════════════════════════════════════════════════════
+   SUCCESS STATE  (replaces the form)
+   ════════════════════════════════════════════════════════════ */
+.ct-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex: 1;
+  text-align: center;
+  padding: 24px;
+  min-height: 220px;
+  animation: ct-fade-in 300ms ease;
+}
+
+@keyframes ct-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ct-success-icon {
+  font-size: 52px;
+  line-height: 1;
+}
+
+.ct-success-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #a6e3a1;
+  margin: 0;
+}
+
+.ct-success-msg {
+  font-size: 13px;
+  color: #6c7086;
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+.ct-success-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #313244;
+  border: 1px solid #45475a;
+  border-radius: 7px;
+  color: #cdd6f4;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+  margin-top: 4px;
+}
+
+.ct-success-back:hover { background: #45475a; border-color: #585b70; }
