@@ -83,7 +83,7 @@
       id: 'stub-portfolio-os',
       title: 'Portfolio OS',
       description: 'A browser-based GNOME-shell simulation used as an interactive portfolio.',
-      tech: ['JavaScript', 'CSS3', 'HTML5', 'Bootstrap 5'],
+      tech: ['JavaScript', 'CSS3', 'HTML5', 'Bootstrap 5', 'Firebase'],
       github: 'https://github.com/shimbojr/portfolio-os',
       live: 'https://shimbojr.dev',
       image: 'https://images.unsplash.com/photo-1491466424936-e304919aada7?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwd2FsbHBhcGVyfGVufDB8fDB8fHww',
