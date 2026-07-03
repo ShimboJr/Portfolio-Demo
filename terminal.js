@@ -70,6 +70,16 @@
 
   const STUB_PROJECTS = [
     {
+      id: 'stub-cowrywise-os',
+      title: 'Cowrywise',
+      description: 'A demo of a banking dashboard for Cowrywise.',
+      tech: ['CSS', 'HTML5', 'BootStrap', 'JavaScript'],
+      github: 'https://github.com/ShimboJr/Cowrywise-Demo',
+      live: 'https://sjr-cowrywise.vercel.app',
+      image: './images/minions.jpeg',
+      dateAdded: '2026-07-03T00:00:00Z',
+    },
+    {
       id: 'stub-portfolio-os',
       title: 'Portfolio OS',
       description: 'A browser-based GNOME-shell simulation used as an interactive portfolio.',
@@ -78,16 +88,6 @@
       live: 'https://shimbojr.dev',
       image: 'https://images.unsplash.com/photo-1491466424936-e304919aada7?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwd2FsbHBhcGVyfGVufDB8fDB8fHww',
       dateAdded: '2025-01-15T00:00:00Z',
-    },
-    {
-      id: 'stub-cowrywise-os',
-      title: 'Cowrywise Dashboard',
-      description: 'A demo of a banking dashboard for Cowrywise.',
-      tech: ['CSS', 'HTML5', 'BootStrap', 'JavaScript'],
-      github: 'https://github.com/ShimboJr/Cowrywise-Demo',
-      live: 'https://sjr-cowrywise.vercel.app',
-      image: './images/minions.jpeg',
-      dateAdded: '2026-07-03T00:00:00Z',
     },
     {
       id: 'stub-fintech-dash',
