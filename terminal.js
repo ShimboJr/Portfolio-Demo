@@ -70,6 +70,16 @@
 
   const STUB_PROJECTS = [
     {
+      id: 'stub-sjrmusic',
+      title: 'SJr Music',
+      description: 'This is a Music Search & Streaming Web Application built arounD a custom music API.',
+      tech: ['CSS', 'HTML5', 'BootStrap', 'JavaScript'],
+      github: 'https://github.com/ShimboJr/Sjr-Music-API-UI',
+      live: 'https://sjr-music-api.vercel.app/',
+      image: './images/sjr-music.jpg',
+      dateAdded: '2026-08-08T20:18:00Z',
+    },
+    {
       id: 'stub-cowrywise',
       title: 'Cowrywise Demo',
       description: 'A savings and investments platform, trusted by individuals, HNIs, and corporates.',
