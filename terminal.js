@@ -75,7 +75,7 @@
       description: 'This is a Music Search & Streaming Web Application built arounD a custom music API.',
       tech: ['CSS', 'HTML5', 'BootStrap', 'JavaScript'],
       github: 'https://github.com/ShimboJr/Sjr-Music-API-UI',
-      live: 'https://sjr-music-api.vercel.app/',
+      live: 'https://sjr-music.vercel.app/',
       image: './images/sjr-music.jpg',
       dateAdded: '2026-08-08T20:18:00Z',
     },
