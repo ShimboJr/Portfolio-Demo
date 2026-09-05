@@ -69,7 +69,17 @@
      ══════════════════════════════════════════════════════════ */
 
   const STUB_PROJECTS = [
-    {
+      {
+          id: 'stub-civicfix',
+          title: 'CivicFix',
+          description: 'CivicFix is a web-based platform that enables residents to report community problems and monitor their progress toward resolution.',
+          tech: ['CSS3', 'HTML5', 'BootStrap', 'React', 'Vite', 'REST API', 'JWT Authentication'],
+          github: 'https://github.com/ShimboJr/CivicFix-Frontend',
+          live: 'https://sjr-civicfix.vercel.app/',
+          image: './images/civicfix.jpg',
+          dateAdded: '2026-09-01T10:06:00Z',
+      },
+      {
       id: 'stub-sjrmusic',
       title: 'SJr Music',
       description: 'This is a Music Search & Streaming Web Application built arounD a custom music API.',
