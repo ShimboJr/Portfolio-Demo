@@ -70,19 +70,29 @@
 
   const STUB_PROJECTS = [
       {
+          id: 'stub-tradiary',
+          title: 'Tradiary',
+          description: 'CivicFix is a web-based platform that enables residents to report community problems and monitor their progress toward resolution.',
+          tech: ['CSS3', 'HTML5', 'BootStrap', 'React', 'Vite', 'REST API', 'JWT Authentication'],
+          github: 'https://github.com/ShimboJr/Tradiary-Frontend',
+          live: 'https://tradairy.vercel.app/',
+          image: './images/tradiary.png',
+          dateAdded: '2026-10-02T12:36:00Z',
+      },
+      {
           id: 'stub-civicfix',
           title: 'CivicFix',
           description: 'CivicFix is a web-based platform that enables residents to report community problems and monitor their progress toward resolution.',
           tech: ['CSS3', 'HTML5', 'BootStrap', 'React', 'Vite', 'REST API', 'JWT Authentication'],
           github: 'https://github.com/ShimboJr/CivicFix-Frontend',
           live: 'https://sjr-civicfix.vercel.app/',
-          image: './images/civicfix.jpg',
+          image: './images/civicfix.png',
           dateAdded: '2026-09-01T10:06:00Z',
       },
       {
       id: 'stub-sjrmusic',
       title: 'SJr Music',
-      description: 'This is a Music Search & Streaming Web Application built arounD a custom music API.',
+      description: 'This is a Music Search & Streaming Web Application built around a custom music API.',
       tech: ['CSS', 'HTML5', 'BootStrap', 'JavaScript'],
       github: 'https://github.com/ShimboJr/Sjr-Music-API-UI',
       live: 'https://sjr-music.vercel.app/',
