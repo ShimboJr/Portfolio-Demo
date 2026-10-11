@@ -72,7 +72,7 @@
       {
           id: 'stub-tradiary',
           title: 'Tradiary',
-          description: 'CivicFix is a web-based platform that enables residents to report community problems and monitor their progress toward resolution.',
+          description: 'The free, no-catch trading journal for serious traders. Log trades, review your edge, and improve — with deep analytics built in.',
           tech: ['CSS3', 'HTML5', 'BootStrap', 'React', 'Vite', 'REST API', 'JWT Authentication'],
           github: 'https://github.com/ShimboJr/Tradiary-Frontend',
           live: 'https://tradairy.vercel.app/',
