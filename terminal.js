@@ -77,7 +77,7 @@
           github: 'https://github.com/ShimboJr/Tradiary-Frontend',
           live: 'https://tradairy.vercel.app/',
           image: './images/tradiary.png',
-          dateAdded: '2026-10-02T12:36:00Z',
+          dateAdded: '2026-10-02T12:46:00Z',
       },
       {
           id: 'stub-civicfix',
