@@ -69,6 +69,16 @@
      ══════════════════════════════════════════════════════════ */
 
   const STUB_PROJECTS = [
+    {
+      id: 'stub-voltwatch',
+      title: 'VoltWatch',
+      description: 'Laptop battery monitoring and remote alert system for unattended Windows trading rigs.',
+      tech: ['Python', 'SQLite', 'MongoDB Atlas', 'HTML', 'Bootstrap 5', 'vanilla JS', 'Chart.js 4', 'REST API', 'JWT Authentication', 'GitHub Actions'],
+      github: 'https://github.com/ShimboJr/VoltWatch',
+      live: 'https://voltwatch-dashboard.vercel.app/',
+      image: './images/voltwatch.jpg',
+      dateAdded: '2026-11-01T21:26:00Z',
+    },
       {
           id: 'stub-tradiary',
           title: 'Tradiary',
@@ -96,7 +106,7 @@
       tech: ['CSS', 'HTML5', 'BootStrap', 'JavaScript'],
       github: 'https://github.com/ShimboJr/Sjr-Music-API-UI',
       live: 'https://sjr-music.vercel.app/',
-      image: './images/sjr-music.jpg',
+      image: './images/sjr-music.png',
       dateAdded: '2026-08-08T20:18:00Z',
     },
     {

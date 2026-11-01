@@ -25,7 +25,7 @@
     name: 'Siyanbola Adeola Olaoluwa',
     initials: 'AO',             // 2-letter avatar initials
     role: 'Software Engineer',
-    location: 'Lagos, Nigeria',
+    location: 'Ogbomoso, Oyo State, Nigeria',
     resumeHref: 'resume.pdf',   // path or URL to your CV
   };
 
