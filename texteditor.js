@@ -27,7 +27,7 @@
 ──────────────────────────────────────────────────────
 
 Hello! I'm Siyanbola Adeola Olaoluwa, a passionate Full-Stack
-Software Developer based in Lagos.
+Software Developer currently based in Ogbomoso, Oyo State, Nigeria.
 
 I craft elegant, performant interfaces and robust
 backend systems that solve real-world problems.
