@@ -38,7 +38,7 @@ the art of software engineering.
 
 ## Currently
 
-- Working on a SJr Laundry Suite 
+- Working on SJr Laundry Suite 
 - Levelling up in Software Engineering (Full Stack Web Development)
 - Available for **remote opportunities** worldwide
 
