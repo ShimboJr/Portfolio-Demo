@@ -92,7 +92,7 @@
       {
           id: 'stub-civicfix',
           title: 'CivicFix',
-          description: 'CivicFix is a web-based platform that enables residents to report community problems and monitor their progress toward resolution.',
+          description: 'CivicFix is a web-based platform that enables residents to report community problems, monitor their progress toward resolution and Real-Time Location Sharing.',
           tech: ['CSS3', 'HTML5', 'BootStrap', 'React', 'Vite', 'REST API', 'JWT Authentication'],
           github: 'https://github.com/ShimboJr/CivicFix-Frontend',
           live: 'https://sjr-civicfix.vercel.app/',
