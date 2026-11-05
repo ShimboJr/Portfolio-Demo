@@ -75,7 +75,7 @@
       description: 'Laptop battery monitoring and remote alert system for unattended Windows trading rigs.',
       tech: ['Python', 'SQLite', 'MongoDB Atlas', 'HTML', 'Bootstrap 5', 'vanilla JS', 'Chart.js 4', 'REST API', 'JWT Authentication', 'GitHub Actions'],
       github: 'https://github.com/ShimboJr/VoltWatch',
-      live: 'https://voltwatch-dashboard.vercel.app/',
+      live: 'https://sjrvoltwatch.vercel.app/',
       image: './images/voltwatch.jpg',
       dateAdded: '2026-11-01T21:26:00Z',
     },
