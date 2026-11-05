@@ -95,7 +95,7 @@
           description: 'CivicFix is a web-based platform that enables residents to report community problems, monitor their progress toward resolution and Real-Time Location Sharing.',
           tech: ['CSS3', 'HTML5', 'BootStrap', 'React', 'Vite', 'REST API', 'JWT Authentication'],
           github: 'https://github.com/ShimboJr/CivicFix-Frontend',
-          live: 'https://sjr-civicfix.vercel.app/',
+          live: 'https://sjrcivicfix.vercel.app/',
           image: './images/civicfix.png',
           dateAdded: '2026-09-01T10:06:00Z',
       },
